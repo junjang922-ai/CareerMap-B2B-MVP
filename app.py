@@ -111,6 +111,7 @@ if menu == "📊 컴플라이언스 대시보드":
     st.markdown("<div class='section-title'>인사 컴플라이언스 통합 대시보드</div>", unsafe_allow_html=True)
     st.markdown("<p style='color:#64748B; margin-bottom:24px;'>실시간 내국인 고용보험 데이터와 연동되어 외국인 채용 가능 인원을 산출합니다.</p>", unsafe_allow_html=True)
     
+    # 1. 상단 핵심 지표 (Metrics)
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.markdown("<div class='dashboard-card'><div class='metric-label'>내국인 고용보험 가입자</div><div class='metric-value'>42 명 <span class='metric-delta-up'>↑ 3</span></div></div>", unsafe_allow_html=True)
@@ -121,11 +122,40 @@ if menu == "📊 컴플라이언스 대시보드":
     with col4:
         st.markdown("<div class='dashboard-card' style='border:2px solid #3B82F6; background-color:#F8FAFC;'><div class='metric-label' style='color:#2563EB;'>추가 채용 가능 쿼터</div><div class='metric-value' style='color:#1D4ED8;'>2 명</div></div>", unsafe_allow_html=True)
 
+    # 2. 쿼터 소진율 프로그레스 바
     st.markdown("<div class='dashboard-card'>", unsafe_allow_html=True)
-    st.markdown("<div class='progress-label'><span>쿼터 소진율</span><span>75%</span></div>", unsafe_allow_html=True)
+    st.markdown("<div class='progress-label'><span>E-7 쿼터 소진율 (안전)</span><span>75%</span></div>", unsafe_allow_html=True)
     st.progress(75)
     st.markdown("</div>", unsafe_allow_html=True)
 
+    # 3. [추가된 중간 영역] 소속 외국인 인력 관리 현황판
+    st.markdown("<div class='section-title' style='margin-top: 32px;'>👥 소속 외국인 인력 체류 만료 현황</div>", unsafe_allow_html=True)
+    st.markdown("<p style='color:#64748B; margin-bottom:16px;'>만료일이 60일 이내로 남은 인력은 자동으로 강조 표시되며 갱신 알림이 발송됩니다.</p>", unsafe_allow_html=True)
+    
+    # B2B 느낌을 살린 더미 데이터프레임
+    emp_data = pd.DataFrame({
+        "이름": ["응우옌 반 안", "트란 티 마이", "아웅 툰", "레 티 투하", "팜 민 뚜언", "해원 (신규 채용)"],
+        "국적": ["🇻🇳 베트남", "🇻🇳 베트남", "🇲🇲 미얀마", "🇻🇳 베트남", "🇻🇳 베트남", "🇻🇳 베트남"],
+        "부서/직무": ["생산1팀 / CNC 조작", "품질관리 / 검사", "생산2팀 / 조립", "해외영업 / B2B", "생산1팀 / 포장", "해외영업 / 베트남"],
+        "비자 종류": ["E-7-4 (숙련기능)", "E-7-4 (숙련기능)", "E-9 (비전문)", "E-7-1 (전문인력)", "E-7-4 (숙련기능)", "E-7-1 (진행중)"],
+        "만료 예정일": ["2026-04-20", "2026-08-15", "2026-11-30", "2027-02-10", "2027-05-05", "심사 중"],
+        "상태": ["🚨 만료 임박 (30일)", "🟢 정상 체류", "🟢 정상 체류", "🟢 정상 체류", "🟢 정상 체류", "🔄 발급 대기"]
+    })
+    
+    # 깔끔한 UI로 데이터 시각화
+    st.dataframe(
+        emp_data,
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "상태": st.column_config.TextColumn("상태", help="체류 상태 및 만료 경고"),
+            "만료 예정일": st.column_config.TextColumn("만료 예정일")
+        }
+    )
+    
+    st.write("")
+    
+    # 4. 하단 경고/알림
     col_alert1, col_alert2 = st.columns(2)
     with col_alert1:
         st.markdown("<div class='section-title'>🚨 시급한 리스크 알림</div>", unsafe_allow_html=True)
@@ -136,7 +166,7 @@ if menu == "📊 컴플라이언스 대시보드":
         st.markdown("<div class='section-title'>📈 최근 매칭 트렌드</div>", unsafe_allow_html=True)
         st.info("베트남 국적, 경제학 전공 우수 유학생 12명이 우리 기업을 관심 직장으로 등록했습니다.")
         st.success("지자체 지역특화형 비자 F-2-R 배정 심사가 시작되었습니다. 지원자를 검토하세요.")
-
+        
 elif menu == "⚖️ 지원자 리스크 평가":
     st.markdown("<div class='section-title'>지원자 비자 적격성 & 실무 역량 리포트</div>", unsafe_allow_html=True)
     
