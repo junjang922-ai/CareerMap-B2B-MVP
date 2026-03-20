@@ -18,7 +18,6 @@ st.markdown("""
     
     .stApp { background-color: #F1F5F9; }
     
-    /* 통합 카드 디자인 */
     .dashboard-card {
         background-color: #FFFFFF;
         padding: 24px;
@@ -28,13 +27,11 @@ st.markdown("""
         margin-bottom: 24px;
     }
     
-    /* 지표 타이포그래피 */
     .metric-label { font-size: 13px; color: #64748B; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
     .metric-value { font-size: 32px; font-weight: 800; color: #0F172A; display: flex; align-items: baseline; gap: 12px; }
     .metric-delta-up { font-size: 14px; color: #10B981; font-weight: 600; padding: 2px 8px; background-color: #D1FAE5; border-radius: 12px; }
     .metric-delta-down { font-size: 14px; color: #EF4444; font-weight: 600; padding: 2px 8px; background-color: #FEE2E2; border-radius: 12px; }
     
-    /* 뱃지 시스템 */
     .badge-safe { color: #047857; background-color: #A7F3D0; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; }
     .badge-warn { color: #B45309; background-color: #FDE68A; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; }
     .badge-danger { color: #B91C1C; background-color: #FECACA; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; }
@@ -43,7 +40,6 @@ st.markdown("""
         font-size: 20px; font-weight: 800; color: #0F172A; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #E2E8F0;
     }
     
-    /* 버튼 스타일 */
     .ai-button > button {
         background: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%) !important;
         color: #FFFFFF !important; font-weight: 800 !important; font-size: 16px !important;
@@ -54,7 +50,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==============================================================================
-# 2. 사이드바 (글로벌 네비게이션)
+# 2. 사이드바
 # ==============================================================================
 with st.sidebar:
     st.markdown("<h2 style='color:#1E40AF; font-weight:900;'>CareerMap Biz</h2>", unsafe_allow_html=True)
@@ -77,8 +73,8 @@ with st.sidebar:
 # 화면 1: 기업용 홈 대시보드
 # ==============================================================================
 if menu == "📊 컴플라이언스 대시보드":
-    st.markdown("<div class='section-title'>인사 컴플라이언스 통합 대시보드</div>", unsafe_allow_html=True)
-    st.markdown("<p style='color:#64748B; margin-bottom:24px;'>실시간 내국인 고용보험 데이터와 연동되어 외국인 채용 가능 인원을 산출합니다.</p>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title'>인사 컴플라이언스 및 채용 대시보드</div>", unsafe_allow_html=True)
+    st.markdown("<p style='color:#64748B; margin-bottom:24px;'>실시간 내국인 고용보험 데이터와 연동되어 외국인 채용 쿼터를 산출하고 맞춤 인재를 추천합니다.</p>", unsafe_allow_html=True)
     
     col1, col2, col3, col4 = st.columns(4)
     with col1: st.markdown("<div class='dashboard-card'><div class='metric-label'>내국인 고용보험 가입자</div><div class='metric-value'>42 명 <span class='metric-delta-up'>↑ 3</span></div></div>", unsafe_allow_html=True)
@@ -86,7 +82,6 @@ if menu == "📊 컴플라이언스 대시보드":
     with col3: st.markdown("<div class='dashboard-card'><div class='metric-label'>현재 E-7 고용 인원</div><div class='metric-value'>6 명 <span class='metric-delta-down'>- 0</span></div></div>", unsafe_allow_html=True)
     with col4: st.markdown("<div class='dashboard-card' style='border:2px solid #3B82F6; background-color:#F8FAFC;'><div class='metric-label' style='color:#2563EB;'>추가 채용 가능 쿼터</div><div class='metric-value' style='color:#1D4ED8;'>2 명</div></div>", unsafe_allow_html=True)
 
-    # 문자열 연결 방식(들여쓰기 버그 완벽 차단)
     progress_html = (
         "<div class='dashboard-card'>"
         "<div style='display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 8px;'>"
@@ -96,15 +91,63 @@ if menu == "📊 컴플라이언스 대시보드":
         "<div style='width: 75%; background-color: #3B82F6; height: 100%; border-radius: 999px;'></div>"
         "</div>"
         "<div style='margin-top: 8px; font-size: 12px; color: #64748B; text-align: right;'>"
-        "총 8명 중 6명 채용 완료"
+        "잔여 쿼터 2명에 대한 맞춤형 인재를 아래에서 바로 확인하세요."
         "</div>"
         "</div>"
     )
     st.markdown(progress_html, unsafe_allow_html=True)
 
+    st.markdown("<div class='section-title' style='margin-top: 32px;'>🎯 맞춤형 우수 외국인 인재 추천 (Direct Sourcing)</div>", unsafe_allow_html=True)
+    st.markdown("<p style='color:#64748B; margin-bottom:16px;'>등록하신 구인 조건(해외영업, 생산관리)에 부합하며, 비자 발급 확률이 검증된 인재입니다.</p>", unsafe_allow_html=True)
+
+    candidates_html = (
+        "<div style='display: flex; gap: 16px; margin-bottom: 24px;'>"
+        
+        "<div class='dashboard-card' style='flex: 1; margin-bottom: 0; padding: 20px; border-top: 4px solid #059669;'>"
+        "<div style='display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;'>"
+        "<div style='font-size: 24px; background-color: #EFF6FF; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center;'>👩‍🎓</div>"
+        "<div style='background-color: #D1FAE5; color: #047857; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 700;'>비자안정권 94%</div>"
+        "</div>"
+        "<h4 style='margin: 0 0 4px 0; color: #0F172A;'>해원 (Haewon)</h4>"
+        "<p style='margin: 0 0 12px 0; font-size: 13px; color: #64748B;'>🇻🇳 베트남 / 연세대학교 경제학과</p>"
+        "<div style='background-color: #F8FAFC; padding: 12px; border-radius: 8px; font-size: 12px; color: #475569; margin-bottom: 16px; line-height: 1.5;'>"
+        "<b>지원 포지션:</b> 해외영업<br><b>어학 능력:</b> TOPIK 6급 (비즈니스 능통)"
+        "</div>"
+        "<button style='width: 100%; background-color: #2563EB; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer;'>면접 제안하기</button>"
+        "</div>"
+        
+        "<div class='dashboard-card' style='flex: 1; margin-bottom: 0; padding: 20px; border-top: 4px solid #059669;'>"
+        "<div style='display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;'>"
+        "<div style='font-size: 24px; background-color: #FEF2F2; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center;'>👨‍💻</div>"
+        "<div style='background-color: #D1FAE5; color: #047857; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 700;'>비자안정권 88%</div>"
+        "</div>"
+        "<h4 style='margin: 0 0 4px 0; color: #0F172A;'>아웅 (Aung)</h4>"
+        "<p style='margin: 0 0 12px 0; font-size: 13px; color: #64748B;'>🇲🇲 미얀마 / 충남대학교 기계공학</p>"
+        "<div style='background-color: #F8FAFC; padding: 12px; border-radius: 8px; font-size: 12px; color: #475569; margin-bottom: 16px; line-height: 1.5;'>"
+        "<b>지원 포지션:</b> 생산관리 엔지니어<br><b>어학 능력:</b> TOPIK 4급 (업무 소통 가능)"
+        "</div>"
+        "<button style='width: 100%; background-color: #2563EB; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer;'>면접 제안하기</button>"
+        "</div>"
+        
+        "<div class='dashboard-card' style='flex: 1; margin-bottom: 0; padding: 20px; border-top: 4px solid #D97706;'>"
+        "<div style='display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;'>"
+        "<div style='font-size: 24px; background-color: #F0FDF4; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center;'>👨‍🎓</div>"
+        "<div style='background-color: #FEF3C7; color: #B45309; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 700;'>요건확인 75%</div>"
+        "</div>"
+        "<h4 style='margin: 0 0 4px 0; color: #0F172A;'>리드완 (Ridwan)</h4>"
+        "<p style='margin: 0 0 12px 0; font-size: 13px; color: #64748B;'>🇮🇩 인도네시아 / 부산대학교 무역학</p>"
+        "<div style='background-color: #F8FAFC; padding: 12px; border-radius: 8px; font-size: 12px; color: #475569; margin-bottom: 16px; line-height: 1.5;'>"
+        "<b>지원 포지션:</b> 해외영업<br><b>어학 능력:</b> TOPIK 5급 (비즈니스 우수)"
+        "</div>"
+        "<button style='width: 100%; background-color: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer;'>상세 요건 검토</button>"
+        "</div>"
+        
+        "</div>"
+    )
+    st.markdown(candidates_html, unsafe_allow_html=True)
+
     st.markdown("<div class='section-title' style='margin-top: 32px;'>👥 소속 외국인 인력 체류 만료 현황</div>", unsafe_allow_html=True)
     
-    # 테이블 문자열 연결 방식
     table_html = (
         "<div class='dashboard-card' style='padding: 0; overflow: hidden;'>"
         "<table style='width: 100%; border-collapse: collapse; text-align: left;'>"
@@ -135,36 +178,14 @@ if menu == "📊 컴플라이언스 대시보드":
         "<td style='padding: 16px; color: #475569;'>2026-08-15</td>"
         "<td style='padding: 16px;'><span class='badge-safe'>🟢 정상 체류</span></td>"
         "</tr>"
-        "<tr style='border-bottom: 1px solid #E2E8F0;'>"
-        "<td style='padding: 16px; font-weight: 600; color: #0F172A;'>아웅 툰</td>"
-        "<td style='padding: 16px; color: #475569;'>MM 미얀마</td>"
-        "<td style='padding: 16px; color: #475569;'>생산2팀 / 조립</td>"
-        "<td style='padding: 16px; font-weight: 500; color: #64748B;'>E-9</td>"
-        "<td style='padding: 16px; color: #475569;'>2026-11-30</td>"
-        "<td style='padding: 16px;'><span class='badge-safe'>🟢 정상 체류</span></td>"
-        "</tr>"
-        "<tr>"
-        "<td style='padding: 16px; font-weight: 600; color: #0F172A;'>해원 (신규 채용)</td>"
-        "<td style='padding: 16px; color: #475569;'>VN 베트남</td>"
-        "<td style='padding: 16px; color: #475569;'>해외영업 / 베트남</td>"
-        "<td style='padding: 16px; font-weight: 500; color: #8B5CF6;'>E-7-1 (진행중)</td>"
-        "<td style='padding: 16px; color: #475569;'>심사 중</td>"
-        "<td style='padding: 16px;'><span style='color: #2563EB; background-color: #DBEAFE; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700;'>🔄 발급 대기</span></td>"
-        "</tr>"
         "</tbody>"
         "</table>"
         "</div>"
     )
     st.markdown(table_html, unsafe_allow_html=True)
     
-    st.write("")
-    col_alert1, col_alert2 = st.columns(2)
-    with col_alert1:
-        st.markdown("<div class='section-title'>🚨 리스크 알림</div>", unsafe_allow_html=True)
-        st.error("생산본부 '응우옌 반 안' 직원의 체류 기간이 30일 뒤 만료됩니다.")
-    with col_alert2:
-        st.markdown("<div class='section-title'>📈 추천 매칭</div>", unsafe_allow_html=True)
-        st.info("베트남 국적, 경제학 전공 유학생 12명이 관심 직장으로 등록했습니다.")
+    st.markdown("<div class='section-title'>🚨 리스크 알림</div>", unsafe_allow_html=True)
+    st.error("생산본부 '응우옌 반 안' 직원의 체류 기간이 30일 뒤 만료됩니다. 연장 수속을 즉시 진행하십시오.")
 
 # ==============================================================================
 # 화면 2: 지원자 리스크 평가 리포트
@@ -206,7 +227,6 @@ elif menu == "⚖️ 지원자 리스크 평가":
         st.markdown(left_card, unsafe_allow_html=True)
         
     with col_r:
-        # 이 부분이 문제의 깨지던 역량 리포트 영역입니다. 문자열 연결로 완벽 차단.
         right_card = (
             "<div class='dashboard-card'>"
             "<div style='font-size:16px; font-weight:800; margin-bottom:20px;'>실무 역량 검증 리포트</div>"
