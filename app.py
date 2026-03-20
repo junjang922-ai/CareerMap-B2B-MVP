@@ -37,6 +37,7 @@ st.markdown("""
     /* 뱃지 시스템 */
     .badge-safe { color: #047857; background-color: #A7F3D0; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; }
     .badge-warn { color: #B45309; background-color: #FDE68A; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+    .badge-danger { color: #B91C1C; background-color: #FECACA; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; }
     
     .section-title {
         font-size: 20px; font-weight: 800; color: #0F172A; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #E2E8F0;
@@ -83,7 +84,7 @@ if menu == "📊 컴플라이언스 대시보드":
     with col3: st.markdown("<div class='dashboard-card'><div class='metric-label'>현재 E-7 고용 인원</div><div class='metric-value'>6 명 <span class='metric-delta-down'>- 0</span></div></div>", unsafe_allow_html=True)
     with col4: st.markdown("<div class='dashboard-card' style='border:2px solid #3B82F6; background-color:#F8FAFC;'><div class='metric-label' style='color:#2563EB;'>추가 채용 가능 쿼터</div><div class='metric-value' style='color:#1D4ED8;'>2 명</div></div>", unsafe_allow_html=True)
 
-    # HTML/CSS로 통합된 프로그레스 바 (버그 해결)
+    # 수정됨: HTML/CSS 통합 프로그레스 바 (렌더링 버그 해결)
     st.markdown("""
     <div class='dashboard-card'>
         <div style='display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 8px;'>
@@ -92,21 +93,66 @@ if menu == "📊 컴플라이언스 대시보드":
         <div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 10px;'>
             <div style='width: 75%; background-color: #3B82F6; height: 100%; border-radius: 999px;'></div>
         </div>
+        <div style='margin-top: 8px; font-size: 12px; color: #64748B; text-align: right;'>
+            총 8명 중 6명 채용 완료
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
+    # 수정됨: 순수 HTML/CSS 체류 만료 현황 테이블 (기성품 UI 제거)
     st.markdown("<div class='section-title' style='margin-top: 32px;'>👥 소속 외국인 인력 체류 만료 현황</div>", unsafe_allow_html=True)
     
-    emp_data = pd.DataFrame({
-        "이름": ["응우옌 반 안", "트란 티 마이", "아웅 툰", "해원 (신규 채용)"],
-        "국적": ["🇻🇳 베트남", "🇻🇳 베트남", "🇲🇲 미얀마", "🇻🇳 베트남"],
-        "부서/직무": ["생산1팀 / CNC", "품질관리 / 검사", "생산2팀 / 조립", "해외영업 / 베트남"],
-        "비자 종류": ["E-7-4", "E-7-4", "E-9", "E-7-1 (진행중)"],
-        "만료 예정일": ["2026-04-20", "2026-08-15", "2026-11-30", "심사 중"],
-        "상태": ["🚨 만료 임박(30일)", "🟢 정상 체류", "🟢 정상 체류", "🔄 발급 대기"]
-    })
-    
-    st.dataframe(emp_data, use_container_width=True, hide_index=True)
+    html_table = """
+    <div class='dashboard-card' style='padding: 0; overflow: hidden;'>
+        <table style='width: 100%; border-collapse: collapse; text-align: left;'>
+            <thead>
+                <tr style='background-color: #F8FAFC; border-bottom: 2px solid #E2E8F0;'>
+                    <th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>이름</th>
+                    <th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>국적</th>
+                    <th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>부서/직무</th>
+                    <th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>비자 종류</th>
+                    <th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>만료 예정일</th>
+                    <th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>상태</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style='border-bottom: 1px solid #E2E8F0;'>
+                    <td style='padding: 16px; font-weight: 600; color: #0F172A;'>응우옌 반 안</td>
+                    <td style='padding: 16px; color: #475569;'>VN 베트남</td>
+                    <td style='padding: 16px; color: #475569;'>생산1팀 / CNC</td>
+                    <td style='padding: 16px; font-weight: 500; color: #3B82F6;'>E-7-4</td>
+                    <td style='padding: 16px; color: #475569;'>2026-04-20</td>
+                    <td style='padding: 16px;'><span class='badge-danger'>🚨 만료 임박(30일)</span></td>
+                </tr>
+                <tr style='border-bottom: 1px solid #E2E8F0;'>
+                    <td style='padding: 16px; font-weight: 600; color: #0F172A;'>트란 티 마이</td>
+                    <td style='padding: 16px; color: #475569;'>VN 베트남</td>
+                    <td style='padding: 16px; color: #475569;'>품질관리 / 검사</td>
+                    <td style='padding: 16px; font-weight: 500; color: #3B82F6;'>E-7-4</td>
+                    <td style='padding: 16px; color: #475569;'>2026-08-15</td>
+                    <td style='padding: 16px;'><span class='badge-safe'>🟢 정상 체류</span></td>
+                </tr>
+                <tr style='border-bottom: 1px solid #E2E8F0;'>
+                    <td style='padding: 16px; font-weight: 600; color: #0F172A;'>아웅 툰</td>
+                    <td style='padding: 16px; color: #475569;'>MM 미얀마</td>
+                    <td style='padding: 16px; color: #475569;'>생산2팀 / 조립</td>
+                    <td style='padding: 16px; font-weight: 500; color: #64748B;'>E-9</td>
+                    <td style='padding: 16px; color: #475569;'>2026-11-30</td>
+                    <td style='padding: 16px;'><span class='badge-safe'>🟢 정상 체류</span></td>
+                </tr>
+                <tr>
+                    <td style='padding: 16px; font-weight: 600; color: #0F172A;'>해원 (신규 채용)</td>
+                    <td style='padding: 16px; color: #475569;'>VN 베트남</td>
+                    <td style='padding: 16px; color: #475569;'>해외영업 / 베트남</td>
+                    <td style='padding: 16px; font-weight: 500; color: #8B5CF6;'>E-7-1 (진행중)</td>
+                    <td style='padding: 16px; color: #475569;'>심사 중</td>
+                    <td style='padding: 16px;'><span style='color: #2563EB; background-color: #DBEAFE; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700;'>🔄 발급 대기</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    """
+    st.markdown(html_table, unsafe_allow_html=True)
     
     st.write("")
     col_alert1, col_alert2 = st.columns(2)
@@ -155,7 +201,7 @@ elif menu == "⚖️ 지원자 리스크 평가":
         """, unsafe_allow_html=True)
         
     with col_r:
-        # st.progress 버그를 해결한 순수 HTML 시각화
+        # st.progress 렌더링 버그 해결 
         st.markdown("""
         <div class='dashboard-card'>
             <div style='font-size:16px; font-weight:800; margin-bottom:20px;'>실무 역량 검증 리포트</div>
@@ -188,7 +234,7 @@ elif menu == "⚖️ 지원자 리스크 평가":
             </div>
             
             <div style='background-color:#F1F5F9; padding:12px; border-radius:8px; margin-top:20px; font-size:13px; color:#475569;'>
-                <b>종합:</b> 한국인 신입과 동일 수준의 소통이 가능하며, 현지 벤더사 관리에 즉각 투입 가능한 S급 인재입니다.
+                <b>종합 의견:</b> 한국인 신입 사원과 동일 수준의 소통이 가능하며, 현지 벤더사 관리에 즉각 투입 가능한 S급 인재입니다.
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -201,7 +247,7 @@ elif menu == "📑 비자 행정 & AI 서류":
     
     st.markdown("#### 서류 준비 진척도: 해원 (신규 채용)")
     
-    # HTML 충돌을 막기 위해 네이티브 st.container 사용
+    # HTML 렌더링 충돌 차단을 위한 st.container 위젯 사용
     col_t1, col_t2 = st.columns(2)
     with col_t1:
         with st.container(border=True):
@@ -224,7 +270,6 @@ elif menu == "📑 비자 행정 & AI 서류":
     st.markdown("<h3 style='margin-top:0; color:#1E40AF;'>✨ E-7 고용사유서 AI 자동 생성기</h3>", unsafe_allow_html=True)
     st.markdown("<p style='font-size:14px; color:#475569;'>가장 까다로운 고용사유서를 기업 산업 분류와 구직자 스펙을 교차 분석하여 즉시 작성합니다.</p></div>", unsafe_allow_html=True)
     
-    # 버튼 및 텍스트 영역을 순수 스트림릿 위젯으로 배치하여 버그 차단
     st.markdown('<div class="ai-button">', unsafe_allow_html=True)
     if st.button("🚀 AI 고용사유서 초안 생성 시작"):
         with st.status("AI가 출입국 심사 지침을 분석하여 문서를 작성 중입니다...", expanded=True) as status:
