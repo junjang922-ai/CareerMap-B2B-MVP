@@ -63,13 +63,15 @@ with st.sidebar:
     menu = st.radio("Workspaces", ["📊 컴플라이언스 대시보드", "⚖️ 지원자 리스크 평가", "📑 비자 행정 & AI 서류"], label_visibility="collapsed")
     
     st.divider()
-    st.markdown("""
-        <div style='background-color:#EFF6FF; padding:16px; border-radius:12px; border:1px solid #BFDBFE;'>
-            <div style='font-size:12px; color:#1D4ED8; font-weight:700; margin-bottom:4px;'>E-7 채용 쿼터 현황</div>
-            <div style='font-size:24px; color:#1E3A8A; font-weight:900;'>2명 남음</div>
-            <div style='font-size:12px; color:#3B82F6; margin-top:4px;'>총 허용 8명 중 6명 채용 완료</div>
-        </div>
-    """, unsafe_allow_html=True)
+    
+    sidebar_status = (
+        "<div style='background-color:#EFF6FF; padding:16px; border-radius:12px; border:1px solid #BFDBFE;'>"
+        "<div style='font-size:12px; color:#1D4ED8; font-weight:700; margin-bottom:4px;'>E-7 채용 쿼터 현황</div>"
+        "<div style='font-size:24px; color:#1E3A8A; font-weight:900;'>2명 남음</div>"
+        "<div style='font-size:12px; color:#3B82F6; margin-top:4px;'>총 허용 8명 중 6명 채용 완료</div>"
+        "</div>"
+    )
+    st.markdown(sidebar_status, unsafe_allow_html=True)
 
 # ==============================================================================
 # 화면 1: 기업용 홈 대시보드
@@ -84,73 +86,76 @@ if menu == "📊 컴플라이언스 대시보드":
     with col3: st.markdown("<div class='dashboard-card'><div class='metric-label'>현재 E-7 고용 인원</div><div class='metric-value'>6 명 <span class='metric-delta-down'>- 0</span></div></div>", unsafe_allow_html=True)
     with col4: st.markdown("<div class='dashboard-card' style='border:2px solid #3B82F6; background-color:#F8FAFC;'><div class='metric-label' style='color:#2563EB;'>추가 채용 가능 쿼터</div><div class='metric-value' style='color:#1D4ED8;'>2 명</div></div>", unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class='dashboard-card'>
-        <div style='display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 8px;'>
-            <span>E-7 쿼터 소진율 (안전)</span><span style='color:#2563EB;'>75%</span>
-        </div>
-        <div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 10px;'>
-            <div style='width: 75%; background-color: #3B82F6; height: 100%; border-radius: 999px;'></div>
-        </div>
-        <div style='margin-top: 8px; font-size: 12px; color: #64748B; text-align: right;'>
-            총 8명 중 6명 채용 완료
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    # 문자열 연결 방식(들여쓰기 버그 완벽 차단)
+    progress_html = (
+        "<div class='dashboard-card'>"
+        "<div style='display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 8px;'>"
+        "<span>E-7 쿼터 소진율 (안전)</span><span style='color:#2563EB;'>75%</span>"
+        "</div>"
+        "<div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 10px;'>"
+        "<div style='width: 75%; background-color: #3B82F6; height: 100%; border-radius: 999px;'></div>"
+        "</div>"
+        "<div style='margin-top: 8px; font-size: 12px; color: #64748B; text-align: right;'>"
+        "총 8명 중 6명 채용 완료"
+        "</div>"
+        "</div>"
+    )
+    st.markdown(progress_html, unsafe_allow_html=True)
 
     st.markdown("<div class='section-title' style='margin-top: 32px;'>👥 소속 외국인 인력 체류 만료 현황</div>", unsafe_allow_html=True)
     
-    html_table = """
-    <div class='dashboard-card' style='padding: 0; overflow: hidden;'>
-        <table style='width: 100%; border-collapse: collapse; text-align: left;'>
-            <thead>
-                <tr style='background-color: #F8FAFC; border-bottom: 2px solid #E2E8F0;'>
-                    <th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>이름</th>
-                    <th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>국적</th>
-                    <th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>부서/직무</th>
-                    <th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>비자 종류</th>
-                    <th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>만료 예정일</th>
-                    <th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>상태</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr style='border-bottom: 1px solid #E2E8F0;'>
-                    <td style='padding: 16px; font-weight: 600; color: #0F172A;'>응우옌 반 안</td>
-                    <td style='padding: 16px; color: #475569;'>VN 베트남</td>
-                    <td style='padding: 16px; color: #475569;'>생산1팀 / CNC</td>
-                    <td style='padding: 16px; font-weight: 500; color: #3B82F6;'>E-7-4</td>
-                    <td style='padding: 16px; color: #475569;'>2026-04-20</td>
-                    <td style='padding: 16px;'><span class='badge-danger'>🚨 만료 임박(30일)</span></td>
-                </tr>
-                <tr style='border-bottom: 1px solid #E2E8F0;'>
-                    <td style='padding: 16px; font-weight: 600; color: #0F172A;'>트란 티 마이</td>
-                    <td style='padding: 16px; color: #475569;'>VN 베트남</td>
-                    <td style='padding: 16px; color: #475569;'>품질관리 / 검사</td>
-                    <td style='padding: 16px; font-weight: 500; color: #3B82F6;'>E-7-4</td>
-                    <td style='padding: 16px; color: #475569;'>2026-08-15</td>
-                    <td style='padding: 16px;'><span class='badge-safe'>🟢 정상 체류</span></td>
-                </tr>
-                <tr style='border-bottom: 1px solid #E2E8F0;'>
-                    <td style='padding: 16px; font-weight: 600; color: #0F172A;'>아웅 툰</td>
-                    <td style='padding: 16px; color: #475569;'>MM 미얀마</td>
-                    <td style='padding: 16px; color: #475569;'>생산2팀 / 조립</td>
-                    <td style='padding: 16px; font-weight: 500; color: #64748B;'>E-9</td>
-                    <td style='padding: 16px; color: #475569;'>2026-11-30</td>
-                    <td style='padding: 16px;'><span class='badge-safe'>🟢 정상 체류</span></td>
-                </tr>
-                <tr>
-                    <td style='padding: 16px; font-weight: 600; color: #0F172A;'>해원 (신규 채용)</td>
-                    <td style='padding: 16px; color: #475569;'>VN 베트남</td>
-                    <td style='padding: 16px; color: #475569;'>해외영업 / 베트남</td>
-                    <td style='padding: 16px; font-weight: 500; color: #8B5CF6;'>E-7-1 (진행중)</td>
-                    <td style='padding: 16px; color: #475569;'>심사 중</td>
-                    <td style='padding: 16px;'><span style='color: #2563EB; background-color: #DBEAFE; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700;'>🔄 발급 대기</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    """
-    st.markdown(html_table, unsafe_allow_html=True)
+    # 테이블 문자열 연결 방식
+    table_html = (
+        "<div class='dashboard-card' style='padding: 0; overflow: hidden;'>"
+        "<table style='width: 100%; border-collapse: collapse; text-align: left;'>"
+        "<thead>"
+        "<tr style='background-color: #F8FAFC; border-bottom: 2px solid #E2E8F0;'>"
+        "<th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>이름</th>"
+        "<th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>국적</th>"
+        "<th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>부서/직무</th>"
+        "<th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>비자 종류</th>"
+        "<th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>만료 예정일</th>"
+        "<th style='padding: 16px; color: #64748B; font-size: 13px; font-weight: 700;'>상태</th>"
+        "</tr>"
+        "</thead>"
+        "<tbody>"
+        "<tr style='border-bottom: 1px solid #E2E8F0;'>"
+        "<td style='padding: 16px; font-weight: 600; color: #0F172A;'>응우옌 반 안</td>"
+        "<td style='padding: 16px; color: #475569;'>VN 베트남</td>"
+        "<td style='padding: 16px; color: #475569;'>생산1팀 / CNC</td>"
+        "<td style='padding: 16px; font-weight: 500; color: #3B82F6;'>E-7-4</td>"
+        "<td style='padding: 16px; color: #475569;'>2026-04-20</td>"
+        "<td style='padding: 16px;'><span class='badge-danger'>🚨 만료 임박(30일)</span></td>"
+        "</tr>"
+        "<tr style='border-bottom: 1px solid #E2E8F0;'>"
+        "<td style='padding: 16px; font-weight: 600; color: #0F172A;'>트란 티 마이</td>"
+        "<td style='padding: 16px; color: #475569;'>VN 베트남</td>"
+        "<td style='padding: 16px; color: #475569;'>품질관리 / 검사</td>"
+        "<td style='padding: 16px; font-weight: 500; color: #3B82F6;'>E-7-4</td>"
+        "<td style='padding: 16px; color: #475569;'>2026-08-15</td>"
+        "<td style='padding: 16px;'><span class='badge-safe'>🟢 정상 체류</span></td>"
+        "</tr>"
+        "<tr style='border-bottom: 1px solid #E2E8F0;'>"
+        "<td style='padding: 16px; font-weight: 600; color: #0F172A;'>아웅 툰</td>"
+        "<td style='padding: 16px; color: #475569;'>MM 미얀마</td>"
+        "<td style='padding: 16px; color: #475569;'>생산2팀 / 조립</td>"
+        "<td style='padding: 16px; font-weight: 500; color: #64748B;'>E-9</td>"
+        "<td style='padding: 16px; color: #475569;'>2026-11-30</td>"
+        "<td style='padding: 16px;'><span class='badge-safe'>🟢 정상 체류</span></td>"
+        "</tr>"
+        "<tr>"
+        "<td style='padding: 16px; font-weight: 600; color: #0F172A;'>해원 (신규 채용)</td>"
+        "<td style='padding: 16px; color: #475569;'>VN 베트남</td>"
+        "<td style='padding: 16px; color: #475569;'>해외영업 / 베트남</td>"
+        "<td style='padding: 16px; font-weight: 500; color: #8B5CF6;'>E-7-1 (진행중)</td>"
+        "<td style='padding: 16px; color: #475569;'>심사 중</td>"
+        "<td style='padding: 16px;'><span style='color: #2563EB; background-color: #DBEAFE; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700;'>🔄 발급 대기</span></td>"
+        "</tr>"
+        "</tbody>"
+        "</table>"
+        "</div>"
+    )
+    st.markdown(table_html, unsafe_allow_html=True)
     
     st.write("")
     col_alert1, col_alert2 = st.columns(2)
@@ -167,76 +172,74 @@ if menu == "📊 컴플라이언스 대시보드":
 elif menu == "⚖️ 지원자 리스크 평가":
     st.markdown("<div class='section-title'>지원자 비자 적격성 & 실무 역량 리포트</div>", unsafe_allow_html=True)
     
-    st.markdown("""
-    <div class='dashboard-card' style='display:flex; justify-content:space-between; align-items:center; border-left:6px solid #2563EB;'>
-        <div style='display:flex; align-items:center; gap:20px;'>
-            <div style='width:64px; height:64px; background-color:#E2E8F0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px;'>👩‍🎓</div>
-            <div>
-                <h3 style='margin:0; font-weight:800; color:#0F172A;'>해원 (Haewon) <span style='font-size:14px; font-weight:500; color:#64748B;'>베트남 · 25세</span></h3>
-                <p style='margin:4px 0 0 0; color:#475569; font-size:14px;'>지원 포지션: <b>해외영업 (베트남 담당)</b> / 연세대 경제학과 졸업예정</p>
-            </div>
-        </div>
-        <div style='text-align:right;'>
-            <div style='font-size:13px; color:#64748B; font-weight:700; margin-bottom:4px;'>AI 산출 E-7 발급 확률</div>
-            <div style='font-size:36px; font-weight:900; color:#059669; line-height:1;'>94% <span class='badge-safe' style='vertical-align:middle;'>안정권</span></div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    header_card = (
+        "<div class='dashboard-card' style='display:flex; justify-content:space-between; align-items:center; border-left:6px solid #2563EB;'>"
+        "<div style='display:flex; align-items:center; gap:20px;'>"
+        "<div style='width:64px; height:64px; background-color:#E2E8F0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px;'>👩‍🎓</div>"
+        "<div>"
+        "<h3 style='margin:0; font-weight:800; color:#0F172A;'>해원 (Haewon) <span style='font-size:14px; font-weight:500; color:#64748B;'>베트남 · 25세</span></h3>"
+        "<p style='margin:4px 0 0 0; color:#475569; font-size:14px;'>지원 포지션: <b>해외영업 (베트남 담당)</b> / 연세대 경제학과 졸업예정</p>"
+        "</div>"
+        "</div>"
+        "<div style='text-align:right;'>"
+        "<div style='font-size:13px; color:#64748B; font-weight:700; margin-bottom:4px;'>AI 산출 E-7 발급 확률</div>"
+        "<div style='font-size:36px; font-weight:900; color:#059669; line-height:1;'>94% <span class='badge-safe' style='vertical-align:middle;'>안정권</span></div>"
+        "</div>"
+        "</div>"
+    )
+    st.markdown(header_card, unsafe_allow_html=True)
     
     col_l, col_r = st.columns([1.2, 1])
     
     with col_l:
-        st.markdown("""
-        <div class='dashboard-card'>
-            <div style='font-size:16px; font-weight:800; margin-bottom:16px;'>출입국 지침 컴플라이언스 점검</div>
-            <div style='display:flex; justify-content:space-between; margin-bottom:8px;'><b>직무-전공 연관성</b> <span class='badge-safe'>통과</span></div>
-            <p style='font-size:13px; color:#64748B; margin-bottom:16px;'>해외영업 직무코드(2742)와 경제학 전공이 일치함.</p>
-            <div style='display:flex; justify-content:space-between; margin-bottom:8px;'><b>임금 요건 (GNI 80% 이상)</b> <span class='badge-warn'>주의</span></div>
-            <p style='font-size:13px; color:#64748B; margin-bottom:16px;'>제시 연봉 3,300만 원. GNI 변동 대비 3,400만 원으로 상향 권고.</p>
-            <div style='display:flex; justify-content:space-between; margin-bottom:8px;'><b>범칙금 이력</b> <span class='badge-safe'>클린</span></div>
-            <p style='font-size:13px; color:#64748B; margin-bottom:0;'>시간제 취업 위반 등 결격 사유 없음.</p>
-        </div>
-        """, unsafe_allow_html=True)
+        left_card = (
+            "<div class='dashboard-card'>"
+            "<div style='font-size:16px; font-weight:800; margin-bottom:16px;'>출입국 지침 컴플라이언스 점검</div>"
+            "<div style='display:flex; justify-content:space-between; margin-bottom:8px;'><b>직무-전공 연관성</b> <span class='badge-safe'>통과</span></div>"
+            "<p style='font-size:13px; color:#64748B; margin-bottom:16px;'>해외영업 직무코드(2742)와 경제학 전공이 일치함.</p>"
+            "<div style='display:flex; justify-content:space-between; margin-bottom:8px;'><b>임금 요건 (GNI 80% 이상)</b> <span class='badge-warn'>주의</span></div>"
+            "<p style='font-size:13px; color:#64748B; margin-bottom:16px;'>제시 연봉 3,300만 원. GNI 변동 대비 3,400만 원으로 상향 권고.</p>"
+            "<div style='display:flex; justify-content:space-between; margin-bottom:8px;'><b>범칙금 이력</b> <span class='badge-safe'>클린</span></div>"
+            "<p style='font-size:13px; color:#64748B; margin-bottom:0;'>시간제 취업 위반 등 결격 사유 없음.</p>"
+            "</div>"
+        )
+        st.markdown(left_card, unsafe_allow_html=True)
         
     with col_r:
-        # 마크다운 들여쓰기 깨짐 방지를 위해 좌측 여백 완전 밀착
-        html_report = """
-<div class='dashboard-card'>
-    <div style='font-size:16px; font-weight:800; margin-bottom:20px;'>실무 역량 검증 리포트</div>
-    
-    <div style='margin-bottom: 16px;'>
-        <div style='display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px;'>
-            <span>비즈니스 한국어 (TOPIK 6급)</span><span>95/100</span>
-        </div>
-        <div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 8px;'>
-            <div style='width: 95%; background-color: #059669; height: 100%; border-radius: 999px;'></div>
-        </div>
-    </div>
-    
-    <div style='margin-bottom: 16px;'>
-        <div style='display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px;'>
-            <span>문서 작성 역량 (기획서)</span><span>85/100</span>
-        </div>
-        <div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 8px;'>
-            <div style='width: 85%; background-color: #3B82F6; height: 100%; border-radius: 999px;'></div>
-        </div>
-    </div>
-    
-    <div style='margin-bottom: 16px;'>
-        <div style='display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px;'>
-            <span>한국 기업 조직 적응력</span><span>90/100</span>
-        </div>
-        <div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 8px;'>
-            <div style='width: 90%; background-color: #8B5CF6; height: 100%; border-radius: 999px;'></div>
-        </div>
-    </div>
-    
-    <div style='background-color:#F1F5F9; padding:12px; border-radius:8px; margin-top:20px; font-size:13px; color:#475569;'>
-        <b>종합 의견:</b> 한국인 신입 사원과 동일 수준의 소통이 가능하며, 현지 벤더사 관리에 즉각 투입 가능한 S급 인재입니다.
-    </div>
-</div>
-"""
-        st.markdown(html_report, unsafe_allow_html=True)
+        # 이 부분이 문제의 깨지던 역량 리포트 영역입니다. 문자열 연결로 완벽 차단.
+        right_card = (
+            "<div class='dashboard-card'>"
+            "<div style='font-size:16px; font-weight:800; margin-bottom:20px;'>실무 역량 검증 리포트</div>"
+            "<div style='margin-bottom: 16px;'>"
+            "<div style='display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px;'>"
+            "<span>비즈니스 한국어 (TOPIK 6급)</span><span>95/100</span>"
+            "</div>"
+            "<div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 8px;'>"
+            "<div style='width: 95%; background-color: #059669; height: 100%; border-radius: 999px;'></div>"
+            "</div>"
+            "</div>"
+            "<div style='margin-bottom: 16px;'>"
+            "<div style='display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px;'>"
+            "<span>문서 작성 역량 (기획서)</span><span>85/100</span>"
+            "</div>"
+            "<div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 8px;'>"
+            "<div style='width: 85%; background-color: #3B82F6; height: 100%; border-radius: 999px;'></div>"
+            "</div>"
+            "</div>"
+            "<div style='margin-bottom: 16px;'>"
+            "<div style='display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px;'>"
+            "<span>한국 기업 조직 적응력</span><span>90/100</span>"
+            "</div>"
+            "<div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 8px;'>"
+            "<div style='width: 90%; background-color: #8B5CF6; height: 100%; border-radius: 999px;'></div>"
+            "</div>"
+            "</div>"
+            "<div style='background-color:#F1F5F9; padding:12px; border-radius:8px; margin-top:20px; font-size:13px; color:#475569;'>"
+            "<b>종합 의견:</b> 한국인 신입 사원과 동일 수준의 소통이 가능하며, 현지 벤더사 관리에 즉각 투입 가능한 S급 인재입니다."
+            "</div>"
+            "</div>"
+        )
+        st.markdown(right_card, unsafe_allow_html=True)
 
 # ==============================================================================
 # 화면 3: 비자 행정 트래커 및 AI 서류
@@ -264,9 +267,13 @@ elif menu == "📑 비자 행정 & AI 서류":
             st.checkbox("표준 근로계약서 원본", value=False)
             st.checkbox("외국인 고용사유서 (심사 핵심 서류)", value=False)
 
-    st.markdown("<div class='dashboard-card' style='margin-top:24px; background: linear-gradient(to right, #F8FAFC, #EFF6FF); border: 1px solid #BFDBFE;'>", unsafe_allow_html=True)
-    st.markdown("<h3 style='margin-top:0; color:#1E40AF;'>✨ E-7 고용사유서 AI 자동 생성기</h3>", unsafe_allow_html=True)
-    st.markdown("<p style='font-size:14px; color:#475569;'>가장 까다로운 고용사유서를 기업 산업 분류와 구직자 스펙을 교차 분석하여 즉시 작성합니다.</p></div>", unsafe_allow_html=True)
+    ai_header = (
+        "<div class='dashboard-card' style='margin-top:24px; background: linear-gradient(to right, #F8FAFC, #EFF6FF); border: 1px solid #BFDBFE;'>"
+        "<h3 style='margin-top:0; color:#1E40AF;'>✨ E-7 고용사유서 AI 자동 생성기</h3>"
+        "<p style='font-size:14px; color:#475569; margin-bottom:0;'>가장 까다로운 고용사유서를 기업 산업 분류와 구직자 스펙을 교차 분석하여 즉시 작성합니다.</p>"
+        "</div>"
+    )
+    st.markdown(ai_header, unsafe_allow_html=True)
     
     st.markdown('<div class="ai-button">', unsafe_allow_html=True)
     if st.button("🚀 AI 고용사유서 초안 생성 시작"):
