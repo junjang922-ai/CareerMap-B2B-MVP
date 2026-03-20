@@ -84,7 +84,6 @@ if menu == "📊 컴플라이언스 대시보드":
     with col3: st.markdown("<div class='dashboard-card'><div class='metric-label'>현재 E-7 고용 인원</div><div class='metric-value'>6 명 <span class='metric-delta-down'>- 0</span></div></div>", unsafe_allow_html=True)
     with col4: st.markdown("<div class='dashboard-card' style='border:2px solid #3B82F6; background-color:#F8FAFC;'><div class='metric-label' style='color:#2563EB;'>추가 채용 가능 쿼터</div><div class='metric-value' style='color:#1D4ED8;'>2 명</div></div>", unsafe_allow_html=True)
 
-    # 수정됨: HTML/CSS 통합 프로그레스 바 (렌더링 버그 해결)
     st.markdown("""
     <div class='dashboard-card'>
         <div style='display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 8px;'>
@@ -99,7 +98,6 @@ if menu == "📊 컴플라이언스 대시보드":
     </div>
     """, unsafe_allow_html=True)
 
-    # 수정됨: 순수 HTML/CSS 체류 만료 현황 테이블 (기성품 UI 제거)
     st.markdown("<div class='section-title' style='margin-top: 32px;'>👥 소속 외국인 인력 체류 만료 현황</div>", unsafe_allow_html=True)
     
     html_table = """
@@ -201,43 +199,44 @@ elif menu == "⚖️ 지원자 리스크 평가":
         """, unsafe_allow_html=True)
         
     with col_r:
-        # st.progress 렌더링 버그 해결 
-        st.markdown("""
-        <div class='dashboard-card'>
-            <div style='font-size:16px; font-weight:800; margin-bottom:20px;'>실무 역량 검증 리포트</div>
-            
-            <div style='margin-bottom: 16px;'>
-                <div style='display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px;'>
-                    <span>비즈니스 한국어 (TOPIK 6급)</span><span>95/100</span>
-                </div>
-                <div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 8px;'>
-                    <div style='width: 95%; background-color: #059669; height: 100%; border-radius: 999px;'></div>
-                </div>
-            </div>
-            
-            <div style='margin-bottom: 16px;'>
-                <div style='display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px;'>
-                    <span>문서 작성 역량 (기획서)</span><span>85/100</span>
-                </div>
-                <div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 8px;'>
-                    <div style='width: 85%; background-color: #3B82F6; height: 100%; border-radius: 999px;'></div>
-                </div>
-            </div>
-            
-            <div style='margin-bottom: 16px;'>
-                <div style='display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px;'>
-                    <span>한국 기업 조직 적응력</span><span>90/100</span>
-                </div>
-                <div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 8px;'>
-                    <div style='width: 90%; background-color: #8B5CF6; height: 100%; border-radius: 999px;'></div>
-                </div>
-            </div>
-            
-            <div style='background-color:#F1F5F9; padding:12px; border-radius:8px; margin-top:20px; font-size:13px; color:#475569;'>
-                <b>종합 의견:</b> 한국인 신입 사원과 동일 수준의 소통이 가능하며, 현지 벤더사 관리에 즉각 투입 가능한 S급 인재입니다.
-            </div>
+        # 마크다운 들여쓰기 깨짐 방지를 위해 좌측 여백 완전 밀착
+        html_report = """
+<div class='dashboard-card'>
+    <div style='font-size:16px; font-weight:800; margin-bottom:20px;'>실무 역량 검증 리포트</div>
+    
+    <div style='margin-bottom: 16px;'>
+        <div style='display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px;'>
+            <span>비즈니스 한국어 (TOPIK 6급)</span><span>95/100</span>
         </div>
-        """, unsafe_allow_html=True)
+        <div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 8px;'>
+            <div style='width: 95%; background-color: #059669; height: 100%; border-radius: 999px;'></div>
+        </div>
+    </div>
+    
+    <div style='margin-bottom: 16px;'>
+        <div style='display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px;'>
+            <span>문서 작성 역량 (기획서)</span><span>85/100</span>
+        </div>
+        <div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 8px;'>
+            <div style='width: 85%; background-color: #3B82F6; height: 100%; border-radius: 999px;'></div>
+        </div>
+    </div>
+    
+    <div style='margin-bottom: 16px;'>
+        <div style='display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px;'>
+            <span>한국 기업 조직 적응력</span><span>90/100</span>
+        </div>
+        <div style='width: 100%; background-color: #E2E8F0; border-radius: 999px; height: 8px;'>
+            <div style='width: 90%; background-color: #8B5CF6; height: 100%; border-radius: 999px;'></div>
+        </div>
+    </div>
+    
+    <div style='background-color:#F1F5F9; padding:12px; border-radius:8px; margin-top:20px; font-size:13px; color:#475569;'>
+        <b>종합 의견:</b> 한국인 신입 사원과 동일 수준의 소통이 가능하며, 현지 벤더사 관리에 즉각 투입 가능한 S급 인재입니다.
+    </div>
+</div>
+"""
+        st.markdown(html_report, unsafe_allow_html=True)
 
 # ==============================================================================
 # 화면 3: 비자 행정 트래커 및 AI 서류
@@ -247,7 +246,6 @@ elif menu == "📑 비자 행정 & AI 서류":
     
     st.markdown("#### 서류 준비 진척도: 해원 (신규 채용)")
     
-    # HTML 렌더링 충돌 차단을 위한 st.container 위젯 사용
     col_t1, col_t2 = st.columns(2)
     with col_t1:
         with st.container(border=True):
