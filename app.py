@@ -108,7 +108,7 @@ if menu == "📊 컴플라이언스 대시보드":
         "<div style='font-size: 24px; background-color: #EFF6FF; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center;'>👩‍🎓</div>"
         "<div style='background-color: #D1FAE5; color: #047857; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 700;'>비자안정권 94%</div>"
         "</div>"
-        "<h4 style='margin: 0 0 4px 0; color: #0F172A;'>해원 (Haewon)</h4>"
+        "<h4 class='candidate-name'>리엔 (Lien)</h4>"
         "<p style='margin: 0 0 12px 0; font-size: 13px; color: #64748B;'>🇻🇳 베트남 / 연세대학교 경제학과</p>"
         "<div style='background-color: #F8FAFC; padding: 12px; border-radius: 8px; font-size: 12px; color: #475569; margin-bottom: 16px; line-height: 1.5;'>"
         "<b>지원 포지션:</b> 해외영업<br><b>어학 능력:</b> TOPIK 6급 (비즈니스 능통)"
@@ -191,14 +191,14 @@ if menu == "📊 컴플라이언스 대시보드":
 # 화면 2: 지원자 리스크 평가 리포트
 # ==============================================================================
 elif menu == "⚖️ 지원자 리스크 평가":
-    st.markdown("<div class='section-title'>지원자 비자 적격성 & 실무 역량 리포트</div>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title'>지원자 비자 적 적격성 & 실무 역량 리포트</div>", unsafe_allow_html=True)
     
     header_card = (
         "<div class='dashboard-card' style='display:flex; justify-content:space-between; align-items:center; border-left:6px solid #2563EB;'>"
         "<div style='display:flex; align-items:center; gap:20px;'>"
         "<div style='width:64px; height:64px; background-color:#E2E8F0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px;'>👩‍🎓</div>"
         "<div>"
-        "<h3 style='margin:0; font-weight:800; color:#0F172A;'>해원 (Haewon) <span style='font-size:14px; font-weight:500; color:#64748B;'>베트남 · 25세</span></h3>"
+        "<h3 style='margin:0; font-weight:800; color:#0F172A;'>리엔 (Lien) <span style='font-size:14px; font-weight:500; color:#64748B;'>베트남 · 25세</span></h3>"
         "<p style='margin:4px 0 0 0; color:#475569; font-size:14px;'>지원 포지션: <b>해외영업 (베트남 담당)</b> / 연세대 경제학과 졸업예정</p>"
         "</div>"
         "</div>"
@@ -267,7 +267,7 @@ elif menu == "⚖️ 지원자 리스크 평가":
 elif menu == "📑 비자 행정 & AI 서류":
     st.markdown("<div class='section-title'>양방향 행정 트래커 및 고용사유서 생성</div>", unsafe_allow_html=True)
     
-    st.markdown("#### 서류 준비 진척도: 해원 (신규 채용)")
+    st.markdown("#### 서류 준비 진척도: 리엔 (신규 채용)")
     
     col_t1, col_t2 = st.columns(2)
     with col_t1:
@@ -313,7 +313,7 @@ elif menu == "📑 비자 행정 & AI 서류":
 워크넷을 통해 6개월간 채용을 진행했으나, 베트남 원어민 수준의 어학 능력과 경제학적 분석 역량을 동시에 충족하는 인재를 비수도권에서 확보하기 불가능했습니다.
 
 3. 채용 당위성
-지원자 해원은 연세대 경제학과 출신으로 거시 분석이 가능하며 TOPIK 6급을 보유해 완벽한 업무 소통이 가능합니다. 현지 리스크를 제거할 대체 불가 인력이므로 E-7 사증 발급을 강력히 요청합니다."""
+지원자 리엔은 연세대 경제학과 출신으로 거시 분석이 가능하며 TOPIK 6급을 보유해 완벽한 업무 소통이 가능합니다. 현지 리스크를 제거할 대체 불가 인력이므로 E-7 사증 발급을 강력히 요청합니다."""
         
         st.success("✅ 초안이 생성되었습니다.")
         st.text_area("결과 (편집 가능)", value=doc_text, height=250)
