@@ -97,7 +97,7 @@ if menu == "📊 컴플라이언스 대시보드":
     )
     st.markdown(progress_html, unsafe_allow_html=True)
 
-    st.markdown("<div class='section-title' style='margin-top: 32px; font-size: 24px;'>🎯 맞춤형 우수 외국인 인재 추천</div>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title' style='margin-top: 32px; font-size: 32px;'>🎯 맞춤형 우수 외국인 인재 추천</div>", unsafe_allow_html=True)
     st.markdown("<p style='color:#64748B; margin-bottom:16px;'>등록하신 구인 조건(해외영업, 생산관리)에 부합하며, 비자 발급 확률이 검증된 인재입니다.</p>", unsafe_allow_html=True)
 
     candidates_html = (
@@ -121,7 +121,7 @@ if menu == "📊 컴플라이언스 대시보드":
         "<div style='font-size: 24px; background-color: #FEF2F2; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center;'>👨‍💻</div>"
         "<div style='background-color: #D1FAE5; color: #047857; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 700;'>비자안정권 88%</div>"
         "</div>"
-        "<h4 style='margin: 0 0 4px 0; color: #0F172A;'>아웅 (Aung)</h4>"
+        "<h4 class='candidate-name'>아웅 (Aung)</h4>"
         "<p style='margin: 0 0 12px 0; font-size: 13px; color: #64748B;'>🇲🇲 미얀마 / 충남대학교 기계공학</p>"
         "<div style='background-color: #F8FAFC; padding: 12px; border-radius: 8px; font-size: 12px; color: #475569; margin-bottom: 16px; line-height: 1.5;'>"
         "<b>지원 포지션:</b> 생산관리 엔지니어<br><b>어학 능력:</b> TOPIK 4급 (업무 소통 가능)"
@@ -265,7 +265,7 @@ elif menu == "⚖️ 지원자 리스크 평가":
 # 화면 3: 비자 행정 트래커 및 AI 서류
 # ==============================================================================
 elif menu == "📑 비자 행정 & AI 서류":
-    st.markdown("<div class='section-title'>양방향 행정 트래커 및 고용사유서 생성</div>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title' style='font-size: 32px;'>양방향 행정 트래커 및 고용사유서 생성</div>", unsafe_allow_html=True)
     
     st.markdown("#### 서류 준비 진척도: 리엔 (신규 채용)")
     
