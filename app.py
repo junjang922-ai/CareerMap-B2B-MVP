@@ -191,7 +191,7 @@ if menu == "📊 컴플라이언스 대시보드":
 # 화면 2: 지원자 리스크 평가 리포트
 # ==============================================================================
 elif menu == "⚖️ 지원자 리스크 평가":
-    st.markdown("<div class='section-title'>지원자 비자 적 적격성 & 실무 역량 리포트</div>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title'>지원자 비자 적격성 & 실무 역량 리포트</div>", unsafe_allow_html=True)
     
     header_card = (
         "<div class='dashboard-card' style='display:flex; justify-content:space-between; align-items:center; border-left:6px solid #2563EB;'>"
